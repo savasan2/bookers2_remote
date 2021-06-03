@@ -1,0 +1,46 @@
+    <%= render 'users/userinfo', user: @user, book: @book %>
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Opinion</th>
+            <th colspan="3"></th>
+          </tr>
+        </tread>
+        <tbody>
+          <% @books.each do |books| %>
+          <tr>
+            <td>
+              <%= link_to user_path(books.user_id) do %>
+              <%= attachment_image_tag books.user, :profile_image, size: "40x40", fallback: "no_image.jpg" %>
+              <% end %>
+            </td>
+            <td><%= link_to books.title, book_path(books.id) %></td>
+            <td><%= books.body %></td>
+            <td>
+              <% if books.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to book_favorites_path(books), method: :delete do %>
+                    <font color="red">♥<%= books.favorites.count %></font>
+                  <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to book_favorites_path(books), method: :post do %>
+                    ♥<%= books.favorites.count %>
+                  <% end %>
+                </p>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "コメント数：#{books.book_comments.count}", book_path(books.id) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
