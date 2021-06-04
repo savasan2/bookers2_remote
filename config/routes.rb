@@ -7,5 +7,9 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
   end
   resources :users, only: [:show, :index, :edit, :update]
+  post 'follow/:id' => 'relationships#create', as: 'follow'
+  post 'unfollow/:id' => 'relationships#destroy', as: 'unfollow'
+  get 'users/:id/following' => 'relationships#follower', as: 'following'
+  get 'users/:id/followers' => 'relationships#followed', as: 'followers'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
