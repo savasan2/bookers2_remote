@@ -1,0 +1,1 @@
+$(".comments").html("<%= escape_javascript(render partial: 'book_comments/comment', locals: {books: @books,book_comment: @book_comment) %>");
